@@ -18,6 +18,12 @@ typedef struct s_point
     float		x;
     float		y;
     float		z;
+    int			xshift;
+    int			yshift;
+    int			depth;
+    int			z_z;
+    int			iso;
+    double			angle;
 
 }t_point;
 
@@ -35,6 +41,7 @@ typedef struct s_params
 	int		x;
 	int		y;
 	int		t;
+	t_point		*v;
 }t_params;
 
 t_point **parser(char *file_name, int *y, int *x);
