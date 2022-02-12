@@ -1,4 +1,6 @@
 #include "includes.h"
+#include <stdio.h>
+
 
 int	count_elements(char *line)
 {
@@ -55,7 +57,18 @@ t_point	**allocate(int	*h_w)
 	matrix[i] = 0;
 	return (matrix);
 }
+int	get_color(char *s)
+{
+	int	i;
 
+	i = 0;
+	while (s[i] && s[i] != ' ' && s[i] != ',')
+		i++;
+	if (s[i] == ',')
+		return (hex_to_int(s+i+1));
+	else
+		return (16777215);
+}
 void	fill_matrix(int y, char *line, t_point **matrix)
 {
 	char **s;
@@ -68,6 +81,8 @@ void	fill_matrix(int y, char *line, t_point **matrix)
 		matrix[y][i].x = i;
 		matrix[y][i].y = y;
 		matrix[y][i].z = ft_atoi(s[i]);
+		matrix[y][i].color = get_color(s[i]);
+		printf("color :%d\n",matrix[y][i].color);
 		free(s[i]);
 		i++;
 	}

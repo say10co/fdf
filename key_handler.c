@@ -50,7 +50,6 @@ int key_handler(int k, void *params)
 		exit(0);
 	}
 	extend_key_handler(k, &p);
-	
 	mlx_clear_window(p.window.mlx_ptr, p.window.win_ptr);
 	drow(p.matrix, p.window, p.y, p.x, p.v);
 	return (0);

@@ -32,22 +32,39 @@ typedef struct s_point
     float		x;
     float		y;
     float		z;
+    double		angle;
     int			xshift;
     int			yshift;
     int			depth;
     int			z_z;
     int			iso;
-    double			angle;
-	int				sizex;
-	int				sizey;
+    int			sizex;
+    int			sizey;
+    int			color;
+
 
 }t_point;
+
+typedef struct	s_img
+{
+	void		*img_ptr;
+	int			*data;
+	int			size_l;
+	int			bpp;
+	int			endian;
+
+
+}t_img;
 
 typedef struct s_window
 {
 	void	*mlx_ptr;
 	void	*win_ptr;	
 	int		color;
+	int			width;
+	int			higth;
+	t_img		*img;
+
 }t_window;
 
 typedef struct s_params
@@ -60,9 +77,14 @@ typedef struct s_params
 	t_point		*v;
 }t_params;
 
+
+int    		my_abs(int a);
 int		close_(void     *null);
 int		key_handler(int k, void *params);
-void	drow(t_point **matrix, t_window win, int y, int x, t_point *p_base);
-void    set_default(t_point *p_base);
-t_point **parser(char *file_name, int *y, int *x);
+void		drow(t_point **matrix, t_window win, int y, int x, t_point *p_base);
+void    	set_default(t_point *p_base);
+void    	zoom_isometric_shift(t_point *p0, t_point *p1,t_point *p_base);
+unsigned int 	hex_to_int(char *s);
+int     	get_index(char c);
+t_point 	**parser(char *file_name, int *y, int *x);
 #endif
