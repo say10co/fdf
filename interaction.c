@@ -29,10 +29,10 @@ void    zoom_in_out(t_point *p0, t_point *p1, t_point p_base)
         z_zoom = p_base.z_z;
         p0->x *= depth;
         p0->y *= depth;
-        p0->z *= z_zoom;
+        p0->z *= z_zoom / 2;
         p1->x *= depth;
         p1->y *= depth;
-        p1->z *= z_zoom;
+        p1->z *= z_zoom / 2;
 }
 
 void	isometric(t_point *p, t_point p_base)

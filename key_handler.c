@@ -13,18 +13,18 @@
 
 void	extend_key_handler(int	k, t_params *p)
 {
-	if (k == up)
-		p->v->yshift -= 10;
+	if (k == up )
+		p->v->yshift -= 100;
 	if (k == down)
-		p->v->yshift += 10;
+		p->v->yshift += 100;
 	if (k == left)
-		p->v->xshift -= 10;
+		p->v->xshift -= 100;
 	if (k == right)
-		p->v->xshift += 10;
+		p->v->xshift += 100;
 	if (k == zoom_out)
-		p->v->depth += 10;
-	if (k == zoom_in && p->v->depth -10 > 0)
-		p->v->depth -= 10;
+		p->v->depth += 1;
+	if (k == zoom_in)// && p->v->depth -10 > 0)
+		p->v->depth -= 1;
 	if (k == reset)
 		set_default(p->v);
 }

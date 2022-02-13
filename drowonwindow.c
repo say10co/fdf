@@ -73,9 +73,9 @@ void	drow(t_point **matrix, t_window win, int y, int x, t_point *p_base)
 
 void	set_default(t_point *p_base)
 {
-	p_base->xshift = 200;
+	p_base->xshift = 100;
 	p_base->yshift = 10;
-	p_base->depth = 15;
+	p_base->depth = 1;
 	p_base->z_z = 1;
 	p_base->iso = 1;
 	p_base->angle = 0.4;
@@ -99,13 +99,13 @@ int main(int	ac, char **av)
 	matrix = parser(av[1], &y, &x);
 	params.matrix = matrix;
 	window.mlx_ptr = mlx_init();
-	window.win_ptr = mlx_new_window(window.mlx_ptr, 40 * x , 40 * y, "my_fdf_window");
+	window.win_ptr = mlx_new_window(window.mlx_ptr, 1000 , 1000, "my_fdf_window");
 	//----------------//
-	window.width = 40 * x;
-	window.higth = 40 * y;
+	window.width = 1000;//40 * x;
+	window.higth = 1000;//40 * y;
 	//----------------//	
-	p_base.sizex = x * 40;
-	p_base.sizey = y * 40;
+	p_base.sizex = 1000;//x * 40;
+	p_base.sizey = 1000;//y * 40;
 	params.window = window;
 	params.x = x;
 	params.y = y;
