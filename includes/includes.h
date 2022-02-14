@@ -2,19 +2,20 @@
 # define INCLUDES_H
 
 //=-----------=Keys=--------------=//
-# define up 126
-# define down 125
-# define left 123
-# define right 124
-# define zoom_in 44
-# define zoom_out 30
-# define reset 12
-# define z_up 7
-# define z_down 6
-# define tow_d 13
-# define escap 53
-# define rotate_left 0
-# define rotate_right 1
+# define up_key 126
+# define c_key 8
+# define down_key 125
+# define left_key 123
+# define right_key 124
+# define plus_key 30
+# define minus_key 44
+# define q_key 12
+# define x_key 7
+# define z_key 6
+# define w_key 13
+# define escap_key 53
+# define a_key 0
+# define s_key 1
 
 # include "../libft/libft.h"
 # include "../get_next_line/get_next_line.h"
@@ -61,6 +62,7 @@ typedef struct s_window
 	int		z_scale;
 	int		isometric;
 	int		zoom;
+	int		color_diff;
 	t_img	*img;
 	t_point	**matrix;
 

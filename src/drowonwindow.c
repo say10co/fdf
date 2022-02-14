@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 16:02:38 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/14 05:50:22 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:02:43 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	dda(t_point p0, t_point p1, t_window *win)
 	yscale = (float)dy / m;
 	while (m-- >= 0)
 	{
+		if (p0.color == 16777215)
+			p0.color = win->color_diff;
 		t = (int)(p0.y) * win->win_width + (int)(p0.x);
-		if ((p0.x >= 0 && p0.x <= win->win_width) && (p0.y >= 0 &&  p0.y <= win->win_higth) && t < (win->win_width * win->win_width))
+		if (t < (win->win_width * win->win_higth) && (p0.x >= 0 && p0.x <= win->win_width) && (p0.y >= 0 &&  p0.y <= win->win_higth))
 			win->img->data[t] = p0.color;
 		p0.x += xscale;
 		p0.y += yscale;
@@ -77,6 +79,7 @@ void	set_default(t_window *base_values)
 	base_values->z_scale = 1;
 	base_values->isometric = 0;
 	base_values->angle_of_view = 0.4;
+	base_values->color_diff = 16777215;
 }
 
 int	main(int ac, char **av)
@@ -90,9 +93,9 @@ int	main(int ac, char **av)
 	set_default(&window);
 
 	window.mlx_ptr = mlx_init();
-	window.win_ptr = mlx_new_window(window.mlx_ptr, 1000, 1000, "my_fdf_window");
-	window.win_width = 1000;
-	window.win_higth = 1000;
+	window.win_ptr = mlx_new_window(window.mlx_ptr, 2080, 1350, "my_fdf_window");
+	window.win_width = 2080;
+	window.win_higth = 1350;
 
 	mlx_key_hook(window.win_ptr, key_handler, &window);
 
