@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 19:12:30 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/14 05:40:37 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:48:58 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ unsigned int	hex_to_int(char *s)
 	result = 0;
 	i = 2;
 	if (!s)
-		return (16777215);
+		return (13720351);
 	while (s[i])
 		result = result * 16 + get_index(s[i++]);
 	return (result);
@@ -54,7 +54,7 @@ int	get_color(char *s)
 	if (s[i] == ',')
 		return (hex_to_int(s + i +1));
 	else
-		return (16777215);
+		return (13720351);
 }
 
 t_point	**parser(char *file_name, int *y, int *x)

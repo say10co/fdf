@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 19:13:16 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/14 04:25:23 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:23:53 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	fill_matrix(int y, char *line, t_point **matrix)
 		matrix[y][i].y = y;
 		matrix[y][i].z = ft_atoi(s[i]);
 		matrix[y][i].color = get_color(s[i]);
-		printf("color :%d\n", matrix[y][i].color);
 		free(s[i]);
 		i++;
 	}
