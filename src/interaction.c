@@ -6,65 +6,65 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 19:12:43 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/13 19:24:22 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/14 05:43:14 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/includes.h"
 
-int     my_abs(int a)
+int	my_abs(int a)
 {
-        if (a < 0)
-                return (-a);
-        return (a);
+	if (a < 0)
+		return (-a);
+	return (a);
 }
 
-void    shift(t_point *p0, t_point *p1, t_point *p_base)
+void	shift(t_point *p0, t_point *p1, t_window win)
 {
-        int     xshift;
-        int     yshift;
+	int	xshift;
+	int	yshift;
 
-        xshift = p_base->xshift;
-        yshift = p_base->yshift;
-        p0->x += xshift;
-        p0->y += yshift;
-        p1->x += xshift;
-        p1->y += yshift;
+	xshift = win.shift_x;
+	yshift = win.shift_y;
+	p0->x += xshift;
+	p0->y += yshift;
+	p1->x += xshift;
+	p1->y += yshift;
 }
 
-void    zoom_in_out(t_point *p0, t_point *p1, t_point p_base)
+void	zoom_in_out(t_point *p0, t_point *p1, t_window win)
 {
-        int     depth;
-        int     z_zoom;
+	int	zoom;
+	int	z_scale;
 
-        depth = p_base.depth;
-        z_zoom = p_base.z_z;
-        p0->x *= depth;
-        p0->y *= depth;
-        p0->z *= z_zoom;
-        p1->x *= depth;
-        p1->y *= depth;
-        p1->z *= z_zoom;
+	zoom = win.zoom;
+	z_scale = win.z_scale;
+	p0->x *= zoom;
+	p0->y *= zoom;
+	p0->z *= z_scale;
+	p1->x *= zoom;
+	p1->y *= zoom;
+	p1->z *= z_scale;
 }
 
-void	isometric(t_point *p, t_point p_base)
+void	isometric(t_point *p, t_window win)
 {
-	float angle;
-	t_point p1;
+	float	angle;
+	t_point	p_org;
 
-	p1	= *p;
-	angle = p_base.angle;
+	p_org = *p;
+	angle = win.angle_of_view;
 	p->x = (p->x - p->y) * cos(angle);
-	p->y = (p1.x + p->y) * sin(angle) - p->z;
+	p->y = (p_org.x + p->y) * sin(angle) - p->z;
 }
 
-void    zoom_isometric_shift(t_point *p0, t_point *p1,t_point *p_base)
+void	zoom_isometric_shift(t_point *p0, t_point *p1, t_window win)
 {
-        zoom_in_out(p0, p1, *p_base);
-        if (p_base->iso)
-        {
-                isometric(p0, *p_base);
-                isometric(p1, *p_base);
-        }
-        shift(p0, p1, p_base);
+	zoom_in_out(p0, p1, win);
+	if (win.isometric)
+	{
+		isometric(p0, win);
+		isometric(p1, win);
+	}
+	shift(p0, p1, win);
 }

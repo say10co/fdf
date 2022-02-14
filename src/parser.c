@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 19:13:16 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/13 20:44:14 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/14 04:25:23 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_elements(char *line)
 
 	i = 0;
 	str = ft_split(line, ' ');
-	while(str[i])
+	while (str[i])
 		free(str[i++]);
 	free(str);
 	return (i);
@@ -30,7 +30,7 @@ int	*get_heigth_width(char *fname)
 	int		fd;
 	int		*h_w;
 	char	*line;
-	
+
 	fd = open(fname, O_RDONLY);
 	if (fd < 0)
 	{	
@@ -49,14 +49,14 @@ int	*get_heigth_width(char *fname)
 	}
 	free(line);
 	close(fd);
-	return (h_w);	
+	return (h_w);
 }
 
 t_point	**allocate(int	*h_w)
 {
-	t_point **matrix;
+	t_point	**matrix;
 	int		i;
-	
+
 	i = 0;
 	matrix = (t_point **)(malloc(sizeof(t_point *) * h_w[1] + 1));
 	while (i < h_w[1])
@@ -67,31 +67,21 @@ t_point	**allocate(int	*h_w)
 	matrix[i] = 0;
 	return (matrix);
 }
-int	get_color(char *s)
-{
-	int	i;
 
-	i = 0;
-	while (s[i] && s[i] != ' ' && s[i] != ',')
-		i++;
-	if (s[i] == ',')
-		return (hex_to_int(s+i+1));
-	else
-		return (16777215);
-}
 void	fill_matrix(int y, char *line, t_point **matrix)
 {
-	char **s;
-	int	i;
+	char	**s;
+	int		i;
 
 	i = 0;
 	s = ft_split(line, ' ');
-	while(s[i])
+	while (s[i])
 	{
 		matrix[y][i].x = i;
 		matrix[y][i].y = y;
 		matrix[y][i].z = ft_atoi(s[i]);
 		matrix[y][i].color = get_color(s[i]);
+		printf("color :%d\n", matrix[y][i].color);
 		free(s[i]);
 		i++;
 	}
@@ -99,9 +89,9 @@ void	fill_matrix(int y, char *line, t_point **matrix)
 	free(line);
 }
 
-t_point **alloacte_fill(char *file_name, int *y, int *x)
+t_point	**alloacte_fill(char *file_name, int *y, int *x)
 {
-	t_point **matrix;
+	t_point	**matrix;
 	int		*h_w;
 	int		fd;
 	char	*line;
@@ -122,9 +112,4 @@ t_point **alloacte_fill(char *file_name, int *y, int *x)
 	free(h_w);
 	close(fd);
 	return (matrix);
-}
-
-t_point **parser(char *file_name, int *y, int	*x)
-{
-	return (alloacte_fill(file_name, y, x));
 }

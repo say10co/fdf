@@ -6,52 +6,50 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 16:45:43 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/13 19:17:39 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/14 05:48:56 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/includes.h"
 
-void	extend_key_handler(int	k, t_params *p)
+void	extend_key_handler(int k, t_window *win)
 {
-	if (k == up )
-		p->v->yshift -= 50;
+	if (k == up)
+		win->shift_y -= 100;
 	if (k == down)
-		p->v->yshift += 50;
+		win->shift_y += 100;
 	if (k == left)
-		p->v->xshift -= 50;
+		win->shift_x -= 100;
 	if (k == right)
-		p->v->xshift += 50;
+		win->shift_x += 100;
 	if (k == zoom_out)
-		p->v->depth += 1;
-	if (k == zoom_in)// && p->v->depth -10 > 0)
-		p->v->depth -= 1;
+		win->zoom += 1;
+	if (k == zoom_in)
+		win->zoom -= 1;
 	if (k == reset)
-		set_default(p->v);
+		set_default(win);
 }
 
-int key_handler(int k, void *params)
+int	key_handler(int k, void *params)
 {
-	t_params	p;
-	
-	p = *(t_params *)params;
+
 	if (k == z_up)
-		p.v->z_z += 1;
+		((t_window *)params)->z_scale += 1;
 	if (k == z_down)
-		p.v->z_z -= 1;
+		((t_window *)params)->z_scale -= 1;
 	if (k == tow_d)
-		p.v->iso = !(p.v->iso);
+		((t_window *)params)->isometric = !(((t_window *)params)->isometric);
 	if (k == rotate_right)
-		p.v->angle += 0.1;
+		((t_window *)params)->angle_of_view += 0.1;
 	if (k == rotate_left)
-		p.v->angle -= 0.1;
+		((t_window *)params)->angle_of_view -= 0.1;
 	if (k == escap)
 	{
-		mlx_clear_window(p.window.mlx_ptr, p.window.win_ptr);
+		mlx_clear_window(((t_window *)params)->mlx_ptr, ((t_window *)params)->win_ptr);
 		exit(0);
 	}
-	extend_key_handler(k, &p);
-	mlx_clear_window(p.window.mlx_ptr, p.window.win_ptr);
-	drow(p.matrix, p.window, p.y, p.x, p.v);
+	extend_key_handler(k, ((t_window *)params));
+	mlx_clear_window(((t_window *)params)->mlx_ptr, ((t_window *)params)->win_ptr);
+	drow(((t_window *)params)->matrix, ((t_window *)params));
 	return (0);
 }
 

@@ -32,14 +32,6 @@ typedef struct s_point
     float		x;
     float		y;
     float		z;
-    double		angle;
-    int			xshift;
-    int			yshift;
-    int			depth;
-    int			z_z;
-    int			iso;
-    int			sizex;
-    int			sizey;
     int			color;
 
 
@@ -53,38 +45,38 @@ typedef struct	s_img
 	int			bpp;
 	int			endian;
 
-
 }t_img;
 
 typedef struct s_window
 {
+    double	angle_of_view;
 	void	*mlx_ptr;
 	void	*win_ptr;	
-	int		color;
-	int			width;
-	int			higth;
-	t_img		*img;
+	int		win_width;
+	int		win_higth;
+	int		nb_lines;
+	int		line_width;
+	int		shift_x;
+	int		shift_y;
+	int		z_scale;
+	int		isometric;
+	int		zoom;
+	t_img	*img;
+	t_point	**matrix;
+
 
 }t_window;
 
-typedef struct s_params
-{
-	t_point	**matrix;
-	t_window window;
-	int		x;
-	int		y;
-	int		t;
-	t_point		*v;
-}t_params;
 
-
-int    		my_abs(int a);
-int		close_(void     *null);
-int		key_handler(int k, void *params);
-void		drow(t_point **matrix, t_window win, int y, int x, t_point *p_base);
-void    	set_default(t_point *p_base);
-void    	zoom_isometric_shift(t_point *p0, t_point *p1,t_point *p_base);
 unsigned int 	hex_to_int(char *s);
-int     	get_index(char c);
-t_point 	**parser(char *file_name, int *y, int *x);
+int    			my_abs(int a);
+int				close_(void     *null);
+int				key_handler(int k, void *params);
+int				get_color(char *s);
+void			drow(t_point **matrix, t_window *win);
+void    		set_default(t_window *base_values);
+void    		zoom_isometric_shift(t_point *p0, t_point *p1, t_window win);
+int     		get_index(char c);
+t_point 		**parser(char *file_name, int *y, int *x);
+t_point			**alloacte_fill(char *file_name, int *y, int *x);
 #endif
