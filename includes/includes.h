@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 22:12:26 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/14 22:19:40 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/15 01:01:16 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ int				key_handler(int k, void *params);
 int				get_color(char *s);
 int				get_index(char c);
 int				switch_(int x);
-
+int				get_width(char *fname);
+int				get_heigth(char *fname, int width);
+int				free_previous(t_point **matrix, int i);
+int				count_elements(char *line);
+int				verify_extention(char *s);
 void			drow(t_point **matrix, t_window *win);
 void			set_default(t_window *base_values);
 void			zoom_isometric_shift(t_point *p0, t_point *p1, t_window win);

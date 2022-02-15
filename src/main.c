@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 16:02:38 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/14 22:27:39 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/15 01:07:07 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ void	set_default(t_window *base_values)
 	base_values->change_color = 0;
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **file_name)
 {	
 	t_point		**matrix;
 	t_window	win;
 
-	(void)ac;
-	matrix = parser(av[1], &win.nb_lines, &win.line_width);
+	if (ac != 2 || !(verify_extention(file_name[1])))
+		return (0);
+	matrix = parser(file_name[1], &win.nb_lines, &win.line_width);
 	win.matrix = matrix;
 	set_default(&win);
 	win.mlx_ptr = mlx_init();

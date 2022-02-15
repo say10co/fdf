@@ -6,7 +6,7 @@
 /*   By: adriouic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 19:13:16 by adriouic          #+#    #+#             */
-/*   Updated: 2022/02/14 20:23:53 by adriouic         ###   ########.fr       */
+/*   Updated: 2022/02/15 00:35:56 by adriouic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,46 +22,27 @@ int	count_elements(char *line)
 	while (str[i])
 		free(str[i++]);
 	free(str);
+	free(line);
 	return (i);
 }
 
-int	*get_heigth_width(char *fname)
-{
-	int		fd;
-	int		*h_w;
-	char	*line;
-
-	fd = open(fname, O_RDONLY);
-	if (fd < 0)
-	{	
-		ft_putstr_fd("[Error]:Cant open file\n", 2);
-		exit(0);
-	}
-	h_w = (int *)malloc(sizeof(int) * 2);
-	line = get_next_line(fd);
-	h_w[0] = count_elements(line);
-	h_w[1] = 0;
-	while (line)
-	{
-		h_w[1] += 1;
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	return (h_w);
-}
-
-t_point	**allocate(int	*h_w)
+t_point	**allocate(int h, int w)
 {
 	t_point	**matrix;
 	int		i;
 
 	i = 0;
-	matrix = (t_point **)(malloc(sizeof(t_point *) * h_w[1] + 1));
-	while (i < h_w[1])
+	matrix = (t_point **)(malloc(sizeof(t_point *) * h + 1));
+	if (!matrix)
+		return (0);
+	while (i < h)
 	{
-		matrix[i] = (t_point *)(malloc(sizeof(t_point) * h_w[0]));
+		matrix[i] = (t_point *)(malloc(sizeof(t_point) * w));
+		if (!(matrix[i]))
+		{
+			free_previous(matrix, i);
+			return (0);
+		}
 		i++;
 	}
 	matrix[i] = 0;
@@ -75,7 +56,7 @@ void	fill_matrix(int y, char *line, t_point **matrix)
 
 	i = 0;
 	s = ft_split(line, ' ');
-	while (s[i])
+	while (s && s[i])
 	{
 		matrix[y][i].x = i;
 		matrix[y][i].y = y;
@@ -91,24 +72,27 @@ void	fill_matrix(int y, char *line, t_point **matrix)
 t_point	**alloacte_fill(char *file_name, int *y, int *x)
 {
 	t_point	**matrix;
-	int		*h_w;
+	int		i;
 	int		fd;
 	char	*line;
 
-	h_w = get_heigth_width(file_name);
-	matrix = allocate(h_w);
-	*x = h_w[0];
-	h_w[0] = 0;
+	*x = get_width(file_name);
+	*y = get_heigth(file_name, *x);
+	ft_putstr_fd("Allocating memory...\n", 1);
+	matrix = allocate(*y, *x);
+	if (!matrix)
+		return (0);
+	i = 0;
 	fd = open(file_name, O_RDONLY);
 	line = get_next_line(fd);
+	ft_putstr_fd("Filling The grid...\n", 1);
 	while (line)
 	{
-		fill_matrix(h_w[0], line, matrix);
-		h_w[0] += 1;
+		fill_matrix(i, line, matrix);
+		i += 1;
 		line = get_next_line(fd);
 	}
-	*y = h_w[0];
-	free(h_w);
+	free(line);
 	close(fd);
 	return (matrix);
 }
